@@ -1,0 +1,12 @@
+{
+  "Statement": [
+    {
+      "Resource": "https://d1ufgkk53fjk8u.cloudfront.net/*",
+      "Condition": {
+        "DateLessThan": {
+          "AWS:EpochTime": 1714521600
+        }
+      }
+    }
+  ]
+}
