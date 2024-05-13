@@ -1,0 +1,18 @@
+{
+  "name": "signed-cookie-sample",
+  "version": "1.0.0",
+  "description": "1. s3 作成 2. cloudfront ディストリビューションを作成して oac で s3 とつなげる。 3. linux で秘密鍵と公開鍵を作成",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/cloudfront-signer": "^3.572.0",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.11"
+  }
+}
