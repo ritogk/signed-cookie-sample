@@ -5,8 +5,9 @@ import { InfraStack } from "../lib/infra-stack";
 
 const app = new cdk.App();
 
-new InfraStack(app, "SignedCookieSampleInfraStack", {
+const infraStack = new InfraStack(app, "SignedCookieSampleInfraStack", {
   env: {
     region: "ap-northeast-1",
   },
 });
+infraStack.run();

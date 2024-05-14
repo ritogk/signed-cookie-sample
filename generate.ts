@@ -11,17 +11,37 @@ const privateKey = fs.readFileSync("./private_key_base64", {
   encoding: "utf-8",
 });
 const keyPairId = "K1QOTCNUEB4GMO";
-const dateLessThan = "2025-01-01";
-const dateGreaterThan = "2000-01-01";
 const decode = Buffer.from(privateKey, "base64").toString("utf-8");
+console.log(decode);
+
+const policy = {
+  Statement: [
+    // {
+    //   Resource: `${cloudfrontDistributionDomain}/dog.jpg`,
+    //   Condition: {
+    //     DateLessThan: {
+    //       "AWS:EpochTime": new Date("2025-01-01").getTime() / 1000,
+    //     },
+    //   },
+    // },
+    {
+      Resource: `${cloudfrontDistributionDomain}/sample/sample/dog2.png`,
+      Condition: {
+        DateLessThan: {
+          "AWS:EpochTime": new Date("2025-01-01").getTime() / 1000,
+        },
+      },
+    },
+  ],
+};
+
+const policyString = JSON.stringify(policy);
 
 const cookies = getSignedCookies({
-  url,
   keyPairId,
-  dateLessThan,
-  dateGreaterThan,
   privateKey: decode,
+  policy: policyString,
 });
 
-const command = `curl -H 'Cookie: CloudFront-Policy=${cookies["CloudFront-Policy"]};CloudFront-Signature=${cookies["CloudFront-Signature"]};CloudFront-Key-Pair-Id=${keyPairId}' ${cloudfrontDistributionDomain}/dog.jpg --output dog.jpg`;
+const command = `curl -H 'Cookie: CloudFront-Policy=${cookies["CloudFront-Policy"]};CloudFront-Signature=${cookies["CloudFront-Signature"]};CloudFront-Key-Pair-Id=${keyPairId}' ${cloudfrontDistributionDomain}/sample/sample/dog2.png --output dog2.png`;
 console.log(command);
