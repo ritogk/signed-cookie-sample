@@ -35,6 +35,14 @@ export class LambdaEdgeStack extends cdk.Stack {
       }),
     });
 
+    const parameterStorePolicy = new iam.PolicyStatement({
+      actions: ["ssm:GetParameter", "ssm:GetParameters"],
+      resources: [
+        "arn:aws:ssm:ap-northeast-1:788594208758:parameter/cloudfront/edge/public-key",
+      ],
+    });
+    edgeFunction.addToRolePolicy(parameterStorePolicy);
+
     // currentVersionを使うと、変更があった時に勝手にバージョンを上げてくれる。
     this.edgeFunctionVersion = edgeFunction.currentVersion;
     // const uniqueVersionId = `${new Date().getTime()}`;

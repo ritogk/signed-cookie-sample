@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
+
 export const handler = async (event: any): Promise<any> => {
   console.log("Lambda@Edge function triggered");
   const now = dayjs().format("YYYY-MM-DD HH:mm:ss");
@@ -20,6 +22,21 @@ export const handler = async (event: any): Promise<any> => {
         ],
       },
     };
+  }
+
+  const parameterName = "/cloudfront/edge/public-key";
+  const client = new SSMClient(); // 適切なリージョンを設定
+  const command = new GetParameterCommand({
+    Name: parameterName,
+    WithDecryption: false, // 暗号化された値を復号する場合はtrue
+  });
+
+  try {
+    const { Parameter } = await client.send(command);
+    console.log(Parameter?.Value ?? "");
+  } catch (error) {
+    console.error("Error retrieving parameter:", error);
+    throw error;
   }
   return request;
 };
