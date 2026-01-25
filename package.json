@@ -14,7 +14,7 @@
     "@aws-sdk/client-ssm": "^3.574.0",
     "@aws-sdk/cloudfront-signer": "^3.572.0",
     "install": "^0.13.0",
-    "npm": "^10.7.0",
+    "npm": "^11.6.2",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
